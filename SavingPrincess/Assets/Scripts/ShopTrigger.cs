@@ -5,59 +5,61 @@ using UnityEngine.UI;
 using TMPro;
 public class ShopTrigger : MonoBehaviour
 {
-
-    public GameObject shopPanel;       // UI Paneli
+    
     public TextMeshProUGUI interactText;  // TextMeshProUGUI bileþeni tanýmlandý
-    private bool isPlayerInRange = false;  // Oyuncunun belirlenen alanda olup olmadýðýný kontrol eden deðiþken
+    public GameObject shopPanel;      // Dükkan paneli
+    private bool isPlayerInRange = false;
+    private PlayerController playerMovement;  // Karakter hareketi kontrolü
 
     void Start()
     {
-        shopPanel.SetActive(false);    // Panel baþlangýçta kapalý
-      //  interactText.enabled = false;  // Mesaj baþlangýçta gizli
+        shopPanel.SetActive(false);
+        interactText.enabled = false;
+
+        // Karakter hareket script'ine eriþ
+        playerMovement = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        // Eðer oyuncu belirlenen alan içindeyse ve E tuþuna basarsa
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            shopPanel.SetActive(true);  // Paneli aç
-            interactText.enabled = false;  // Mesajý gizle
+            OpenShop();
         }
     }
 
-    // Oyuncu trigger alanýna girdiðinde
-    private void OnTriggerEnter2D(Collider2D other)  // 2D oyun için
+    private void OpenShop()
+    {
+        shopPanel.SetActive(true);
+        interactText.enabled = false;
+        playerMovement.DisableMovement();  // Karakter hareketini durdur
+    
+    }
+
+    // Trigger alanýna girince
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInRange = true;
-            interactText.enabled = true;  // Mesajý göster
-        }
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Karakter trigger alanýna girdi!");  // Bu mesajý Console'da görebilmelisin
             isPlayerInRange = true;
             interactText.enabled = true;
         }
     }
 
-    // Oyuncu trigger alanýndan çýktýðýnda
-    private void OnTriggerExit2D(Collider2D other)  // 2D oyun için
+    // Trigger alanýndan çýkýnca
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            interactText.enabled = false;  // Mesajý gizle
-            shopPanel.SetActive(false);    // Oyuncu alandan çýkýnca paneli kapat
-        }
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Karakter trigger alanýndan çýktý!");  // Console'da görmelisin
-            isPlayerInRange = false;
             interactText.enabled = false;
-            shopPanel.SetActive(false);
+            CloseShop();  // Oyuncu alan dýþýna çýkarsa dükkâný kapat
         }
     }
 
+    public void CloseShop()
+    {
+        shopPanel.SetActive(false);
+        playerMovement.EnableMovement();  // Karakterin hareketini tekrar baþlat
+    }
 }

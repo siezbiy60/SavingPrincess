@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    private bool canMove = true;  // Hareket kontrolü için deðiþken
+
     private float inputPower;
 
     public float moveSpeed;
@@ -48,15 +51,34 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isWalking",(inputPower >0));
        anim.SetInteger("Direction",direction);
 
+        if (canMove)
+        {
+            velocity.x = Input.GetAxisRaw("Horizontal");
+            velocity.y = Input.GetAxisRaw("Vertical");
+        }
+        else
+        {
+            velocity = Vector2.zero;  // Panel açýkken hareket duracak
+        }
 
     }
     private void FixedUpdate()
     {
        rb.velocity=velocity;
+        GetComponent<Rigidbody2D>().MovePosition(GetComponent<Rigidbody2D>().position + velocity * moveSpeed * Time.fixedDeltaTime);
+
 
     }
 
+    public void EnableMovement()
+    {
+        canMove = true;
+    }
 
+    public void DisableMovement()
+    {
+        canMove = false;
+    }
 
 
 }
