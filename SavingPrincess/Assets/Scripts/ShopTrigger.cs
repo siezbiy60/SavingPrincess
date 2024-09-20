@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 public class ShopTrigger : MonoBehaviour
 {
-    
+   
+
     public TextMeshProUGUI interactText;  // TextMeshProUGUI bileþeni tanýmlandý
     public GameObject shopPanel;      // Dükkan paneli
     private bool isPlayerInRange = false;
@@ -27,16 +28,18 @@ public class ShopTrigger : MonoBehaviour
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             OpenShop();
-            
+           
         }
     }
 
+    
+    
     private void OpenShop()
     {
         playerMovement.isWalking=true;
         playerMovement.direction=0;
-
-      //  Time.timeScale=0; //karakteri durdurma (ilerde sorun çýkarabilir)
+          
+        //  Time.timeScale=0; //karakteri durdurma (ilerde sorun çýkarabilir)
         shopPanel.SetActive(true);
         interactText.enabled = false;
         playerMovement.DisableMovement();  // Karakter hareketini durdur
@@ -61,6 +64,8 @@ public class ShopTrigger : MonoBehaviour
 
         shopPanel.SetActive(false);
         playerMovement.EnableMovement();
+       
+
     }
     // Trigger alanýndan çýkýnca
     private void OnTriggerExit2D(Collider2D other)
