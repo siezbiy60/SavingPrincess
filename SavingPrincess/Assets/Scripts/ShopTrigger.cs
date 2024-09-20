@@ -27,12 +27,16 @@ public class ShopTrigger : MonoBehaviour
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             OpenShop();
+            
         }
     }
 
     private void OpenShop()
     {
-       
+        playerMovement.isWalking=true;
+        playerMovement.direction=0;
+
+      //  Time.timeScale=0; //karakteri durdurma (ilerde sorun çýkarabilir)
         shopPanel.SetActive(true);
         interactText.enabled = false;
         playerMovement.DisableMovement();  // Karakter hareketini durdur
@@ -47,10 +51,14 @@ public class ShopTrigger : MonoBehaviour
         {
             isPlayerInRange = true;
             interactText.enabled = true;
+            playerMovement.isWalking = true;
+
         }
     }
     public void CloseShop()
     {
+      //  Time.timeScale = 1;  //karakteri durdurma (ilerde sorun çýkarabilir)
+
         shopPanel.SetActive(false);
         playerMovement.EnableMovement();
     }
