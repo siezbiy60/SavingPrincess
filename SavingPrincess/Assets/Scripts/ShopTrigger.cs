@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 public class ShopTrigger : MonoBehaviour
 {
-   
 
+    public GameObject storePanel;
+    public PlayerController playerController;
     public TextMeshProUGUI interactText;  // TextMeshProUGUI bileþeni tanýmlandý
     public GameObject shopPanel;      // Dükkan paneli
     private bool isPlayerInRange = false;
@@ -30,6 +31,14 @@ public class ShopTrigger : MonoBehaviour
             OpenShop();
            
         }
+        if (storePanel.activeSelf)
+        {
+            playerController.DisableMovement(); // Maðaza açýldýðýnda hareketi devre dýþý býrak
+        }
+        else
+        {
+            playerController.EnableMovement(); // Maðaza kapandýðýnda hareketi etkinleþtir
+        }
     }
 
     
@@ -44,7 +53,6 @@ public class ShopTrigger : MonoBehaviour
         interactText.enabled = false;
         playerMovement.DisableMovement();  // Karakter hareketini durdur
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0)); // Yönlendirmeyi sýfýrla
-
     }
 
     // Trigger alanýna girince

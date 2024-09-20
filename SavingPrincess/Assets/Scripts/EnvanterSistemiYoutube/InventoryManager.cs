@@ -4,29 +4,32 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public GameObject InventoryMenu;
+    public GameObject InventoryMenu; // Envanter paneli
+    public GameObject StorePanel; // Dükkan paneli
     public bool menuActivated;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        // Baþlangýçta envanter kapalý
+        InventoryMenu.SetActive(false);
+        menuActivated = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Tab) &&menuActivated)
+        // Tab tuþuna basýldýðýnda envanter aç/kapat iþlemi yapýlýyor, ama dükkan paneli açýk deðilse
+        if (Input.GetKeyDown(KeyCode.Tab) && !StorePanel.activeSelf)
         {
-            InventoryMenu.SetActive(false);
-            menuActivated = false;
+            if (menuActivated)
+            {
+                InventoryMenu.SetActive(false);
+                menuActivated = false;
+            }
+            else
+            {
+                InventoryMenu.SetActive(true);
+                menuActivated = true;
+            }
         }
-       else if (Input.GetKeyDown(KeyCode.Tab) && !menuActivated)
-        {
-            InventoryMenu.SetActive(true);
-            menuActivated = true;
-        }
-
     }
 }
