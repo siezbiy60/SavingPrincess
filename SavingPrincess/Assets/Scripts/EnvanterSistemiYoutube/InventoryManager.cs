@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject StorePanel; // Dükkan paneli
     public bool menuActivated;
 
-
+    public PlayerController playerMovement;
 
     public ItemSlot[] itemSlot; // Dizinin private olmasýný saðlamak
 
@@ -29,11 +29,15 @@ public class InventoryManager : MonoBehaviour
             {
                 InventoryMenu.SetActive(false);
                 menuActivated = false;
+                playerMovement.EnableMovement();  // Karakter hareketini durdur
+
             }
             else
             {
                 InventoryMenu.SetActive(true);
                 menuActivated = true;
+                playerMovement.DisableMovement();  // Karakter hareketini durdur
+
             }
         }
 
