@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,5 +32,11 @@ public class InventoryManager : MonoBehaviour
                 menuActivated = true;
             }
         }
+
+        
+    }
+    public void AddItem(string itemName, int quantity, Sprite sprite)
+    {
+        Debug.Log("itemName="+itemName+"quantity="+quantity+"itemSprite="+sprite);
     }
 }
