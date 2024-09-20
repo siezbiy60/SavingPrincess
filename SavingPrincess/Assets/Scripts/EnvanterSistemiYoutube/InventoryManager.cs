@@ -9,6 +9,10 @@ public class InventoryManager : MonoBehaviour
     public GameObject StorePanel; // Dükkan paneli
     public bool menuActivated;
 
+
+
+    public ItemSlot[] itemSlot; // Dizinin private olmasýný saðlamak
+
     void Start()
     {
         // Baþlangýçta envanter kapalý
@@ -33,10 +37,21 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        
+
     }
     public void AddItem(string itemName, int quantity, Sprite sprite)
     {
-        Debug.Log("itemName="+itemName+"quantity="+quantity+"itemSprite="+sprite);
+
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if (itemSlot[i].isFull==false)
+            {
+                itemSlot[i].AddItem(itemName, quantity, sprite);
+                return;
+            }
+
+
+        }
+
     }
 }
