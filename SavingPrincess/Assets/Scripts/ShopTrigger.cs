@@ -10,6 +10,7 @@ public class ShopTrigger : MonoBehaviour
     public GameObject shopPanel;      // Dükkan paneli
     private bool isPlayerInRange = false;
     private PlayerController playerMovement;  // Karakter hareketi kontrolü
+    public Text interakttext;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class ShopTrigger : MonoBehaviour
         playerMovement = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
+   
     void Update()
     {
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
@@ -30,10 +32,12 @@ public class ShopTrigger : MonoBehaviour
 
     private void OpenShop()
     {
+       
         shopPanel.SetActive(true);
         interactText.enabled = false;
         playerMovement.DisableMovement();  // Karakter hareketini durdur
-    
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0)); // Yönlendirmeyi sýfýrla
+
     }
 
     // Trigger alanýna girince
@@ -45,7 +49,11 @@ public class ShopTrigger : MonoBehaviour
             interactText.enabled = true;
         }
     }
-
+    public void CloseShop()
+    {
+        shopPanel.SetActive(false);
+        playerMovement.EnableMovement();
+    }
     // Trigger alanýndan çýkýnca
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -57,9 +65,5 @@ public class ShopTrigger : MonoBehaviour
         }
     }
 
-    public void CloseShop()
-    {
-        shopPanel.SetActive(false);
-        playerMovement.EnableMovement();  // Karakterin hareketini tekrar baþlat
-    }
+  
 }
