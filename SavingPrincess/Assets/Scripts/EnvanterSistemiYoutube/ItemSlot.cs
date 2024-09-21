@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
 public class ItemSlot : MonoBehaviour
 {
 
@@ -25,21 +24,18 @@ public class ItemSlot : MonoBehaviour
     private Image itemImage;
 
 
-
-    public GameObject selectedShader;
-    public bool thisSelected;
-
     public void AddItem(string itemName, int quantity, Sprite itemSprite)
-    {
-
-        this.itemName = itemName;
-        this.quantity = quantity;
+        {
+    
+    this.itemName = itemName;
+        this.quantity = quantity;   
         this.itemSprite = itemSprite;
         isFull = true;
-        quantityText.text = quantity.ToString();
-        quantityText.enabled = true;
-        itemImage.sprite = itemSprite;
+        quantityText.text=quantity.ToString();
+        quantityText.enabled=true;
+        itemImage.sprite=itemSprite;
     }
 
+
+
 }
-    

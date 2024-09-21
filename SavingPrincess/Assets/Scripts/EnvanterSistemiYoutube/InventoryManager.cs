@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,33 +29,33 @@ public class InventoryManager : MonoBehaviour
             {
                 InventoryMenu.SetActive(false);
                 menuActivated = false;
-               playerMovement.EnableMovement();  // Karakter hareketini durdur
+                playerMovement.EnableMovement();  // Karakter hareketini durdur
 
             }
             else
             {
                 InventoryMenu.SetActive(true);
                 menuActivated = true;
-              playerMovement.DisableMovement();  // Karakter hareketini durdur
+                playerMovement.DisableMovement();  // Karakter hareketini durdur
 
             }
         }
-
 
 
     }
     public void AddItem(string itemName, int quantity, Sprite sprite)
     {
+
         for (int i = 0; i < itemSlot.Length; i++)
         {
-            if (!itemSlot[i].isFull)
+            if (itemSlot[i].isFull==false)
             {
-                itemSlot[i].AddItem(itemName, quantity, sprite);  // Sprite'ý eklemeyi unutmayýn
+                itemSlot[i].AddItem(itemName, quantity, sprite);
                 return;
             }
+
+
         }
+
     }
-
-
 }
-
