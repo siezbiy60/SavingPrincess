@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour
 {
@@ -42,41 +41,5 @@ public class ItemSlot : MonoBehaviour
         itemImage.sprite = itemSprite;
     }
 
-    //public void OnPointerClick(PointerEventData eventData)
-    //{
-    //    if (eventData.button == PointerEventData.InputButton.Right)
-    //    {
-    //        OnLeftClick();
-    //    }
-
-    //}
-
-    //public void OnLeftClick()
-    //{
-
-    //    selectedShader.SetActive(true);
-    //    thisSelected = true;
-    //}
-
-
-
-    //public void OnPointerClick(PointerEventData eventData)
-    //{
-    //    Debug.Log("Týklanan buton: " + eventData.button.ToString());
-    //    if (eventData.button == PointerEventData.InputButton.Left)
-    //    {
-    //        OnLeftClick();
-    //    }
-    //    //if (eventData.button == PointerEventData.InputButton.Right)
-    //    //{
-    //    //    OnRightClick();
-    //    //}
-    //}
-
-
-    //public void OnLeftClick()
-    //{
-    //    selectedShader.SetActive(true);
-    //    thisSelected = true;
-    //}
 }
+    

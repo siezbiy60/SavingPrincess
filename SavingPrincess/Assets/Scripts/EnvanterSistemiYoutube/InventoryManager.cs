@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,21 +41,20 @@ public class InventoryManager : MonoBehaviour
         }
 
 
+
     }
     public void AddItem(string itemName, int quantity, Sprite sprite)
     {
-
         for (int i = 0; i < itemSlot.Length; i++)
         {
-            if (itemSlot[i].isFull==false)
+            if (!itemSlot[i].isFull)
             {
-                itemSlot[i].AddItem(itemName, quantity, sprite);
+                itemSlot[i].AddItem(itemName, quantity, sprite);  // Sprite'ý eklemeyi unutmayýn
                 return;
             }
-
-
         }
-
     }
 
+
 }
+
