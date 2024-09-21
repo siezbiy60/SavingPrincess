@@ -4044,7 +4044,7 @@ MonoBehaviour:
   InventoryMenu: {fileID: 1133047307}
   StorePanel: {fileID: 441261296}
   menuActivated: 0
-  playerMovement: {fileID: 1529113226}
+  playerMovement: {fileID: 0}
   itemSlot:
   - {fileID: 1984047088}
   - {fileID: 897713832}
