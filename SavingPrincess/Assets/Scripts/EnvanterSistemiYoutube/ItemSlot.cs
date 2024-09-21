@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class ItemSlot : MonoBehaviour
 {
 
     //public string itemName;
@@ -42,21 +42,21 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         itemImage.sprite = itemSprite;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            OnLeftClick();
-        }
+    //public void OnPointerClick(PointerEventData eventData)
+    //{
+    //    if (eventData.button == PointerEventData.InputButton.Right)
+    //    {
+    //        OnLeftClick();
+    //    }
 
-    }
+    //}
 
-    public void OnLeftClick()
-    {
+    //public void OnLeftClick()
+    //{
 
-        selectedShader.SetActive(true);
-        thisSelected = true;
-    }
+    //    selectedShader.SetActive(true);
+    //    thisSelected = true;
+    //}
 
 
 
