@@ -4,7 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class ItemSlot : MonoBehaviour,IPointerClickHandler
+
+public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
 
     //public string itemName;
@@ -25,39 +26,57 @@ public class ItemSlot : MonoBehaviour,IPointerClickHandler
     private Image itemImage;
 
 
+
+    public GameObject selectedShader;
+    public bool thisSelected;
+
     public void AddItem(string itemName, int quantity, Sprite itemSprite)
-        {
-    
-    this.itemName = itemName;
-        this.quantity = quantity;   
+    {
+
+        this.itemName = itemName;
+        this.quantity = quantity;
         this.itemSprite = itemSprite;
         isFull = true;
-        quantityText.text=quantity.ToString();
-        quantityText.enabled=true;
-        itemImage.sprite=itemSprite;
+        quantityText.text = quantity.ToString();
+        quantityText.enabled = true;
+        itemImage.sprite = itemSprite;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left) {
-        OnLeftClick();
-
-        }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            OnRightClick;
+            OnLeftClick();
         }
 
     }
-    public void OnLeftClick() { 
-    
-    
-    
-    }
-    public void OnRightClick()
+
+    public void OnLeftClick()
     {
 
-
-
+        selectedShader.SetActive(true);
+        thisSelected = true;
     }
+
+
+
+    //public void OnPointerClick(PointerEventData eventData)
+    //{
+    //    Debug.Log("Týklanan buton: " + eventData.button.ToString());
+    //    if (eventData.button == PointerEventData.InputButton.Left)
+    //    {
+    //        OnLeftClick();
+    //    }
+    //    //if (eventData.button == PointerEventData.InputButton.Right)
+    //    //{
+    //    //    OnRightClick();
+    //    //}
+    //}
+
+
+    //public void OnLeftClick()
+    //{
+    //    selectedShader.SetActive(true);
+    //    thisSelected = true;
+    //}
 }

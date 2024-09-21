@@ -29,14 +29,14 @@ public class InventoryManager : MonoBehaviour
             {
                 InventoryMenu.SetActive(false);
                 menuActivated = false;
-                playerMovement.EnableMovement();  // Karakter hareketini durdur
+              //  playerMovement.EnableMovement();  // Karakter hareketini durdur
 
             }
             else
             {
                 InventoryMenu.SetActive(true);
                 menuActivated = true;
-                playerMovement.DisableMovement();  // Karakter hareketini durdur
+              //  playerMovement.DisableMovement();  // Karakter hareketini durdur
 
             }
         }
