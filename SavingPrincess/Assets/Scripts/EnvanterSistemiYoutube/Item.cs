@@ -14,6 +14,9 @@ public class Item : MonoBehaviour
     [SerializeField]
     private Sprite sprite;
 
+    [TextArea]
+    [SerializeField]
+    private string itemDescription;
 
     private InventoryManager InventoryManager;
 
@@ -27,7 +30,7 @@ public class Item : MonoBehaviour
     {
         if(collision.gameObject.tag=="Player")
         {
-            InventoryManager.AddItem(itemName,quantity,sprite);
+            InventoryManager.AddItem(itemName,quantity,sprite,itemDescription);
             Destroy(gameObject);
         }
     }

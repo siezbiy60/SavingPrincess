@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class InventoryManager : MonoBehaviour
     public PlayerController playerMovement;
 
     public ItemSlot[] itemSlot; // Dizinin private olmasýný saðlamak
+
+
+    
 
     void Start()
     {
@@ -43,19 +48,38 @@ public class InventoryManager : MonoBehaviour
 
 
     }
-    public void AddItem(string itemName, int quantity, Sprite sprite)
-    {
 
+    // Item ekleme fonksiyonu
+    public void AddItem(string itemName, int quantity, Sprite sprite,string itemDescription)
+    {
+        // Ayný item var mý kontrol et
         for (int i = 0; i < itemSlot.Length; i++)
         {
-            if (itemSlot[i].isFull==false)
+            if (itemSlot[i].isFull && itemSlot[i].itemName == itemName)
             {
-                itemSlot[i].AddItem(itemName, quantity, sprite);
+                // Ayný isimde item varsa, miktarýný artýr
+                itemSlot[i].AddQuantity(quantity);
                 return;
             }
-
-
         }
 
+        // Eðer ayný item yoksa, boþ bir slot bul ve doldur
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if (!itemSlot[i].isFull)
+            {
+                itemSlot[i].AddItem(itemName, quantity, sprite, itemDescription);
+                return;
+            }
+        }
     }
+    public void DeselectAllSlots()
+    {
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            itemSlot[i].selectedShader.SetActive(false);
+            itemSlot[i].thisItemSelected = false;
+        }
+    }
+
 }
