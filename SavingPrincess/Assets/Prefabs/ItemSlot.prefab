@@ -107,8 +107,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3528642004748621689}
-  - {fileID: 3214317336273430759}
   - {fileID: 6041320858209176836}
+  - {fileID: 3214317336273430759}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSlot: []
+  isGoldSlot: 0
   itemDescriptionImage: {fileID: 0}
   ItemDescriptionNameText: {fileID: 0}
   ItemDescriptionText: {fileID: 0}
@@ -175,9 +176,11 @@ MonoBehaviour:
   quantity: 0
   itemSprite: {fileID: 0}
   itemDescription: 
+  emptySprite: {fileID: 0}
   quantityText: {fileID: 466677556572936955}
   itemImage: {fileID: 5216689178262101070}
   thisItemSelected: 0
+  maxNumberOfItem: 1000
   selectedShader: {fileID: 1416051243303420022}
 --- !u!1 &4165826204591673932
 GameObject:

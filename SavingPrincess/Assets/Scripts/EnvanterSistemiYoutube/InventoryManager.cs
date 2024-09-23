@@ -16,7 +16,7 @@ public class InventoryManager : MonoBehaviour
     public ItemSlot[] itemSlot; // Dizinin private olmasýný saðlamak
 
 
-    
+
 
     void Start()
     {
@@ -50,28 +50,37 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Item ekleme fonksiyonu
-    public void AddItem(string itemName, int quantity, Sprite sprite,string itemDescription)
+    public int AddItem(string itemName, int quantity, Sprite sprite, string itemDescription)
     {
         // Ayný item var mý kontrol et
         for (int i = 0; i < itemSlot.Length; i++)
         {
-            if (itemSlot[i].isFull && itemSlot[i].itemName == itemName)
+            if (itemSlot[i].isFull && itemSlot[i].itemName == name || itemSlot[i].quantity == 0)
             {
-                // Ayný isimde item varsa, miktarýný artýr
-                itemSlot[i].AddQuantity(quantity);
-                return;
-            }
-        }
+                int leftOverItems = itemSlot[i].AddItem(itemName, quantity, sprite, itemDescription);
+                if (leftOverItems > 0)
 
-        // Eðer ayný item yoksa, boþ bir slot bul ve doldur
-        for (int i = 0; i < itemSlot.Length; i++)
-        {
-            if (!itemSlot[i].isFull)
-            {
-                itemSlot[i].AddItem(itemName, quantity, sprite, itemDescription);
-                return;
+                    leftOverItems = AddItem(itemName, leftOverItems, sprite, itemDescription);
+
+
+
+
+                // Ayný isimde item varsa, miktarýný artýr
+                // itemSlot[i].AddQuantity(quantity);
+                return leftOverItems;
             }
         }
+        return quantity;
+
+        // Eðer ayný item    yoksa, boþ bir slot bul ve doldur
+        //for (int i = 0; i < itemSlot.Length; i++)
+        //{
+        //    if (!itemSlot[i].isFull)
+        //    {
+        //        itemSlot[i].AddItem(itemName, quantity, sprite, itemDescription);
+        //        return;
+        //    }
+        //}
     }
     public void DeselectAllSlots()
     {
@@ -83,3 +92,6 @@ public class InventoryManager : MonoBehaviour
     }
 
 }
+
+
+

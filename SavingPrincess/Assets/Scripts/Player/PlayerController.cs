@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -84,6 +85,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+
+
+    private int goldAmount;
+    public TMP_Text goldText; // UI'da gösterilecek metin
+
+
     private bool canMove = true;  // Hareket kontrolü için deðiþken
 
     private float inputPower;
@@ -102,6 +109,20 @@ public class PlayerController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        goldAmount = 0;
+        UpdateGoldUI(); // Baþlangýçta UI'ý güncelle
+
+    }
+    public void AddGold(int amount)
+    {
+        goldAmount += amount;
+        UpdateGoldUI();
+    }
+
+    private void UpdateGoldUI()
+    {
+        goldText.text = goldAmount.ToString(); // UI'deki texti güncelle
     }
 
     private void Update()
@@ -153,4 +174,5 @@ public class PlayerController : MonoBehaviour
     {
         canMove = true;
     }
+
 }

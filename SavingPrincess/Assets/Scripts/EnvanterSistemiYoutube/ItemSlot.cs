@@ -9,33 +9,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public ItemSlot[] itemSlot; // Item slotlarýnýn dizisi
 
 
-
-    //public bool isFull;
-    //// ItemSlot ile ilgili deðiþkenler
-    //public string itemName;
-    //public int quantity;
-    //public Sprite itemSprite;
-
-
-    //[SerializeField]
-    //private TMP_Text quantityText;
-
-
-    //[SerializeField]
-    //private Image itemImage;
-
-
-    //public void AddItem(string itemName, int quantity, Sprite itemSprite)
-    //    {
-
-    //this.itemName = itemName;
-    //    this.quantity = quantity;   
-    //    this.itemSprite = itemSprite;
-    //    isFull = true;
-    //    quantityText.text=quantity.ToString();
-    //    quantityText.enabled=true;
-    //    itemImage.sprite=itemSprite;
-    //}
+   
 
 
 
@@ -61,7 +35,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     private Image itemImage;
     public bool thisItemSelected;
 
-    
+    [SerializeField]
+    private int maxNumberOfItem;
 
     public GameObject selectedShader;
     private InventoryManager inventoryManager;
@@ -74,8 +49,45 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
 
     // Yeni item ekleme
-    public void AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription)
+    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription)
     {
+
+
+        //check to see if slot is already full
+        if (isFull)
+            return quantity;
+
+        //update name
+        this.name = itemName;
+
+        //update image
+        this.itemSprite = itemSprite;
+        itemImage.sprite = itemSprite;
+
+        this.itemDescription = itemDescription;
+        //update quantity
+
+        this.quantity += quantity;
+        if (this.quantity >= maxNumberOfItem)
+        {
+            quantityText.text = maxNumberOfItem.ToString();
+            quantityText.enabled = true;
+            isFull = true;
+
+
+
+            int extraItems = this.quantity - maxNumberOfItem;
+            this.quantity = maxNumberOfItem;
+            return extraItems;
+
+        }
+        //update quantity text
+        quantityText.text = this.quantity.ToString();
+        quantityText.enabled = true;
+
+
+        return 0;
+
         this.itemName = itemName;
         this.quantity = quantity;
         this.itemSprite = itemSprite;
@@ -105,18 +117,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             OnRightClick();
 
         }
-        
+
     }
     public void OnLeftClick()
     {
         inventoryManager.DeselectAllSlots();
         selectedShader.SetActive(true);
         thisItemSelected = true;
-        ItemDescriptionNameText.text=itemName;
-        ItemDescriptionText.text=itemDescription;
+        ItemDescriptionNameText.text = itemName;
+        ItemDescriptionText.text = itemDescription;
         itemDescriptionImage.sprite = itemSprite;
-        if(itemDescriptionImage.sprite==null)
-            itemDescriptionImage.sprite=emptySprite;
+        if (itemDescriptionImage.sprite == null)
+            itemDescriptionImage.sprite = emptySprite;
     }
     public void OnRightClick()
     {
@@ -134,6 +146,29 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
 
 
+//public bool isFull;
+//// ItemSlot ile ilgili deðiþkenler
+//public string itemName;
+//public int quantity;
+//public Sprite itemSprite;
 
 
+//[SerializeField]
+//private TMP_Text quantityText;
 
+
+//[SerializeField]
+//private Image itemImage;
+
+
+//public void AddItem(string itemName, int quantity, Sprite itemSprite)
+//    {
+
+//this.itemName = itemName;
+//    this.quantity = quantity;   
+//    this.itemSprite = itemSprite;
+//    isFull = true;
+//    quantityText.text=quantity.ToString();
+//    quantityText.enabled=true;
+//    itemImage.sprite=itemSprite;
+//}
