@@ -31,14 +31,14 @@ public class ShopTrigger : MonoBehaviour
             OpenShop();
            
         }
-        if (storePanel.activeSelf)
-        {
-            playerController.DisableMovement(); // Maðaza açýldýðýnda hareketi devre dýþý býrak
-        }
-        else
-        {
-            playerController.EnableMovement(); // Maðaza kapandýðýnda hareketi etkinleþtir
-        }
+        //if (storePanel.activeSelf)
+        //{
+        //    playerController.DisableMovement(); // Maðaza açýldýðýnda hareketi devre dýþý býrak
+        //}
+        //else
+        //{
+        //    playerController.EnableMovement(); // Maðaza kapandýðýnda hareketi etkinleþtir
+        //}
     }
 
     
