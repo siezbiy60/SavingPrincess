@@ -30,6 +30,7 @@ public class ShopTrigger : MonoBehaviour
     //    {
     //        OpenShop();
            
+<<<<<<< HEAD
     //    }
     //    if (storePanel.activeSelf)
     //    {
@@ -40,6 +41,18 @@ public class ShopTrigger : MonoBehaviour
     //        playerController.EnableMovement(); // Maðaza kapandýðýnda hareketi etkinleþtir
     //    }
     //}
+=======
+        }
+        //if (storePanel.activeSelf)
+        //{
+        //    playerController.DisableMovement(); // Maðaza açýldýðýnda hareketi devre dýþý býrak
+        //}
+        //else
+        //{
+        //    playerController.EnableMovement(); // Maðaza kapandýðýnda hareketi etkinleþtir
+        //}
+    }
+>>>>>>> e9006ef7a1b827478d100b6738b0dd19b51852ae
 
     
     
