@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 //[RequireComponent(typeof(Rigidbody2D))]
 //public class PlayerController : MonoBehaviour
@@ -87,9 +88,9 @@ public class PlayerController : MonoBehaviour
 {
 
 
-    private int goldAmount;
-    public TMP_Text goldText; // UI'da gösterilecek metin
-
+    public int goldAmount = 0; // Baþlangýçtaki altýn miktarý
+    
+    public TextMeshProUGUI goldText4;
 
     private bool canMove = true;  // Hareket kontrolü için deðiþken
 
@@ -110,20 +111,21 @@ public class PlayerController : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        goldAmount = 0;
-        UpdateGoldUI(); // Baþlangýçta UI'ý güncelle
+     
 
     }
-    public void AddGold(int amount)
+    public void CollectGold(int amount)
     {
-        goldAmount += amount;
-        UpdateGoldUI();
+        goldAmount += amount; // Altýn miktarýný gelen miktar kadar arttýr
+        UpdateGoldUI(); // UI'yi güncelle
     }
 
-    private void UpdateGoldUI()
+    // UI'deki altýn miktarýný güncelleyen fonksiyon
+    void UpdateGoldUI()
     {
-        goldText.text = goldAmount.ToString(); // UI'deki texti güncelle
+        goldText4.text = "Gold: " + goldAmount.ToString();
     }
+
 
     private void Update()
     {

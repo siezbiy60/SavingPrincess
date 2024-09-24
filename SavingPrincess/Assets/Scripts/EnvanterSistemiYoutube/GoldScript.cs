@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class GoldScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int goldValue = 1; // Altýnýn deðeri, Inspector'dan ayarlanabilir.
 
-    // Update is called once per frame
-    void Update()
+    // Gold'a çarpýldýðýnda tetiklenecek fonksiyon
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        // Eðer çarpan nesne "Player" tag'ine sahipse
+        if (other.CompareTag("Player"))
+        {
+            // Player'ýn Gold toplama fonksiyonunu çaðýr ve goldValue kadar altýn ekle
+            other.GetComponent<PlayerController>().CollectGold(goldValue);
+            // Altýný yok et
+            Destroy(gameObject);
+        }
     }
 }
