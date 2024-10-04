@@ -1,3 +1,4 @@
+
 //using System.Collections;
 //using System.Collections.Generic;
 //using UnityEngine;
@@ -76,12 +77,12 @@
 //        if (itemDescriptionImage.sprite == null)
 //            itemDescriptionImage.sprite = emptySprite;
 
-//        inventoryManager.ShowItemActions(itemName); // itemName'ý buradan gönder
+//        inventoryManager.ShowItemActions(itemName);
 //    }
 
 //    public void OnRightClick()
 //    {
-//        // Sað týklama için iþlem
+//        // Sað týklama iþlemleri
 //    }
 
 //    // UI'yi güncelleme fonksiyonu
@@ -91,7 +92,20 @@
 //        quantityText.enabled = true;
 //        itemImage.sprite = itemSprite;
 //    }
+
+//    // Item seçimini sýfýrlama fonksiyonu
+//    public void ResetItemSelection()
+//    {
+//        thisItemSelected = false;
+//        selectedShader.SetActive(false);
+//        ItemDescriptionNameText.text = ""; // Açýklama adýný sýfýrla
+//        ItemDescriptionText.text = ""; // Açýklama metnini sýfýrla
+//        itemDescriptionImage.sprite = emptySprite; // Açýklama görüntüsünü sýfýrla
+//    }
+
 //}
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -101,6 +115,8 @@ using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
+    public HealthScript healthScript; // HealthScript referansý
+
     public Image itemDescriptionImage;
     public TMP_Text ItemDescriptionNameText;
     public TMP_Text ItemDescriptionText;
@@ -125,6 +141,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+        healthScript = GameObject.Find("Player").GetComponent<HealthScript>(); // HealthScript referansýný al
     }
 
     // Yeni item ekleme
@@ -167,9 +184,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         ItemDescriptionNameText.text = itemName;
         ItemDescriptionText.text = itemDescription;
         itemDescriptionImage.sprite = itemSprite;
+
+        // Eðer açýklama resmi boþsa, boþ sprite'ý ayarlayýn
         if (itemDescriptionImage.sprite == null)
             itemDescriptionImage.sprite = emptySprite;
 
+        // Item actions göster
         inventoryManager.ShowItemActions(itemName);
     }
 
@@ -181,9 +201,35 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // UI'yi güncelleme fonksiyonu
     public void UpdateItemUI()
     {
-        quantityText.text = quantity.ToString();
-        quantityText.enabled = true;
-        itemImage.sprite = itemSprite;
+        quantityText.text = quantity > 0 ? quantity.ToString() : ""; // Eðer miktar 0'dan büyükse göster
+        quantityText.enabled = quantity > 0; // Miktar 0 ise görünmez yap
+        itemImage.sprite = itemSprite; // Item görselini güncelle
+    }
+
+    // Item kullanma fonksiyonu
+    public void UseItem()
+    {
+        {
+
+            quantity--; // Miktarý bir azalt
+            if (quantity <= 0)
+            {
+                inventoryManager.RemoveItemFromSlot(this); // InventoryManager üzerinden slotu kaldýr
+                ClearSlot(); // Slotu temizle
+                ResetItemSelection(); // Seçimi sýfýrla
+            }
+            UpdateItemUI();
+        }
+    }
+
+    // Slotu temizleme fonksiyonu
+    public void ClearSlot()
+    {
+        itemName = "";
+        quantity = 0;
+        itemSprite = emptySprite;
+        isFull = false;
+        UpdateItemUI(); // UI'yi güncelle
     }
 
     // Item seçimini sýfýrlama fonksiyonu
@@ -195,5 +241,4 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         ItemDescriptionText.text = ""; // Açýklama metnini sýfýrla
         itemDescriptionImage.sprite = emptySprite; // Açýklama görüntüsünü sýfýrla
     }
-
 }

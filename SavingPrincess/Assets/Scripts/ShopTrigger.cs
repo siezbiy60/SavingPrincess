@@ -5,60 +5,86 @@ using UnityEngine.UI;
 using TMPro;
 public class ShopTrigger : MonoBehaviour
 {
-    public GameObject shopPanel; // Dükkan paneli
-    public Button closeButton; // Dükkaný kapatacak buton
-    private bool isPlayerInShopArea = false; // Karakterin dükkanda olup olmadýðýný kontrol eder
-    private PlayerController playerController;
+
+    public GameObject storePanel;
+    public PlayerController playerController;
+    public TextMeshProUGUI interactText;  // TextMeshProUGUI bileþeni tanýmlandý
+    public GameObject shopPanel;      // Dükkan paneli
+    private bool isPlayerInRange = false;
+    private PlayerController playerMovement;  // Karakter hareketi kontrolü
+    public Text interakttext;
 
     void Start()
     {
-        shopPanel.SetActive(false); // Baþlangýçta dükkan paneli kapalý
+        shopPanel.SetActive(false);
+        interactText.enabled = false;
 
-        // Buton týklama olayýný dinleyici olarak ekle
-        closeButton.onClick.AddListener(CloseShopPanel);
+        // Karakter hareket script'ine eriþ
+        playerMovement = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
-    void Update()
+   
+    //void Update()
+    //{
+    //    if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+    //    {
+    //        OpenShop();
+           
+    //    }
+    //    if (storePanel.activeSelf)
+    //    {
+    //        playerController.DisableMovement(); // Maðaza açýldýðýnda hareketi devre dýþý býrak
+    //    }
+    //    else
+    //    {
+    //        playerController.EnableMovement(); // Maðaza kapandýðýnda hareketi etkinleþtir
+    //    }
+    //}
+
+    
+    
+    private void OpenShop()
     {
-        if (isPlayerInShopArea && Input.GetKeyDown(KeyCode.E))
-        {
-            bool isShopPanelActive = !shopPanel.activeSelf;
-            shopPanel.SetActive(isShopPanelActive); // E'ye basýldýðýnda paneli aç/kapat
-
-            if (isShopPanelActive)
-            {
-                playerController.DisableMovement(); // Panel açýldýðýnda hareketi durdur
-            }
-            else
-            {
-                playerController.EnableMovement(); // Panel kapandýðýnda hareketi tekrar baþlat
-            }
-        }
+        playerMovement.isWalking=true;
+        playerMovement.direction=0;
+          
+        //  Time.timeScale=0; //karakteri durdurma (ilerde sorun çýkarabilir)
+        shopPanel.SetActive(true);
+        interactText.enabled = false;
+        playerMovement.DisableMovement();  // Karakter hareketini durdur
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0)); // Yönlendirmeyi sýfýrla
     }
 
+    // Trigger alanýna girince
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInShopArea = true;
-            playerController = other.GetComponent<PlayerController>(); // PlayerController'a eriþ
+            isPlayerInRange = true;
+            interactText.enabled = true;
+            playerMovement.isWalking = true;
+
         }
     }
+    public void CloseShop()
+    {
+      //  Time.timeScale = 1;  //karakteri durdurma (ilerde sorun çýkarabilir)
 
+        shopPanel.SetActive(false);
+        playerMovement.EnableMovement();
+       
+
+    }
+    // Trigger alanýndan çýkýnca
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInShopArea = false;
-            shopPanel.SetActive(false); // Dükkan panelini kapat
-            playerController.EnableMovement(); // Panel kapandýðýnda hareketi tekrar baþlat
+            isPlayerInRange = false;
+            interactText.enabled = false;
+            CloseShop();  // Oyuncu alan dýþýna çýkarsa dükkâný kapat
         }
     }
 
-    // Butona basýldýðýnda paneli kapatma iþlemi
-    public void CloseShopPanel()
-    {
-        shopPanel.SetActive(false); // Dükkan panelini kapat
-        playerController.EnableMovement(); // Panel kapanýnca hareketi tekrar baþlat
-    }
+  
 }

@@ -166,8 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb5cfcc41e524c46ba42cdffee5bd05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSlot: []
-  canStack: 0
   itemDescriptionImage: {fileID: 0}
   ItemDescriptionNameText: {fileID: 0}
   ItemDescriptionText: {fileID: 0}
@@ -180,7 +178,6 @@ MonoBehaviour:
   quantityText: {fileID: 466677556572936955}
   itemImage: {fileID: 5216689178262101070}
   thisItemSelected: 0
-  maxNumberOfItem: 100
   selectedShader: {fileID: 1416051243303420022}
 --- !u!1 &4165826204591673932
 GameObject:
@@ -247,7 +244,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0d8580bf6a8d0490ababa91f75326fbb, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
